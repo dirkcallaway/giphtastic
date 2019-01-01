@@ -8,6 +8,7 @@ var params = {
 };
 var queryURL = "https://api.giphy.com/v1/gifs/search?";
 var gif;
+var cardGif;
 var gifRating = "";
 
 
@@ -31,19 +32,41 @@ var ajaxCall = function () {
 
         .then(function (response) {
             console.log(response);
-            //put articals into HTML
-            for(var i = 0; i < response.data.length; i++){
-            gif = $("<img>").attr("src", response.data[i].embed_url);
-            gifRating = $("<p>").text(response.data[i].rating);
-            $("#gif-box").append(gif);
-            $("#gif-box").append(gifRating);
+            for (var i = 0; i < response.data.length; i++) {
+                cardGif = $("<div style='width: 15rem;'>").addClass("card mb-3");
+                gif = $("<img>").attr({
+                    "src": response.data[i].images.fixed_width_still.url,
+                    "data-static": response.data[i].images.fixed_width_still.url,
+                    "data-play": response.data[i].images.fixed_width.url,
+                    "data-state": "still",
+                    "class": "gif"});
+                gifRating = $("<p class='card-text'>").text("Rated: " + response.data[i].rating);
+                cardGif.append(gif);
+                cardGif.append(gifRating);
+                $("#gif-box").append(cardGif);
             }
         });
 
 };
 
-var printGifs = function() {
+var printGifs = function () {
     gif = $("<img>").attr("src", )
+};
+
+var cardMaker = function () {
+    for (var i = 0; i < response.data.length; i++) {
+        cardGif = $("<div").addClass("card");
+        gif = $("<img>").attr({
+            "src": response.data[i].images.fixed_width_still.url,
+            "data-static": response.data[i].images.fixed_width_still.url,
+            "data-play": response.data[i].images.fixed_width.url,
+            "data-state": "still",
+            "class": "gif"});
+        gifRating = $("<p class='card-text'>").text(response.data[i].rating);
+        cardGif.append(gif);
+        cardGif.append(gifRating);
+        $("#gif-box").append(cardGif);
+    }
 };
 
 
@@ -53,4 +76,17 @@ $(".btn").on("click", function () {
     params.q = this.dataset.value;
     queryURL += $.param(params);
     ajaxCall();
+});
+
+$(document.body).on("click", ".gif", function(){
+    //Checks the state of the button clicked
+    //If the gif is still it will switch the URL to animation
+    if(this.dataset.state === "still"){
+        this.dataset.state = "play";
+        $(this).attr("src", this.dataset.play);
+    //If the gif is playing it will switch the URL to a static img
+    } else {
+        this.dataset.state = "still";
+        $(this).attr("src", this.dataset.static);
+    }
 });
