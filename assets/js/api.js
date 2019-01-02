@@ -18,7 +18,6 @@ var searchInput;
 //Functions
 var buttonMaker = function () {
     $("#buttons").empty();
-    debugger;
     for (var i = 0; i < topics.length; i++) {
         var newButton = $("<button>").text(topics[i]);
         newButton.addClass("btn btn-success mx-2");
