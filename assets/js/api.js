@@ -49,7 +49,7 @@ var ajaxCall = function () {
                 gifRating = $("<p class='card-text'>").text("Rated: " + response.data[i].rating);
                 cardGif.append(gif);
                 cardGif.append(gifRating);
-                $("#gif-box").append(cardGif);
+                $("#gif-box").prepend(cardGif);
             }
         });
 
@@ -60,13 +60,15 @@ var ajaxCall = function () {
 $(document).ready(function(){
 //Button clicks
 buttonMaker();
+
+//Button Click
 $(document.body).on("click", "#gifSearch", function () {
     params.q = this.dataset.value;
     queryURL += $.param(params);
     ajaxCall();
 });
 
-//Gif Button click action
+//Gif click action
 $(document.body).on("click", ".gif", function(){
     //Checks the state of the button clicked
     //If the gif is still it will switch the URL to animation
@@ -80,17 +82,23 @@ $(document.body).on("click", ".gif", function(){
     }
 });
 
+//Input Search Button click
 $("#search").on("click", function(){
+    event.preventDefault();
     searchInput = $("#search-input").val().trim();
     if(searchInput === ""){
         alert("Please enter a valid search!");
     } else{
-        console.log(searchInput);
+        //Collects input and makes sure only the first letter is capitalized
         searchInput = searchInput.toLowerCase();
-        searchInput.charAt(0).toUpperCase();
+        var firstLetter = searchInput.charAt(0);
+        firstLetter = firstLetter.toUpperCase();
+        var slicedInput = searchInput.slice(1);
+        searchInput = firstLetter + slicedInput;
         topics.push(searchInput);
+        //Clears input box
+        $("#search-input").val("");
         buttonMaker();
-        $("#search-input").text("");
     }
 });
 
