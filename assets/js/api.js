@@ -11,6 +11,8 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?";
 var gif;
 var cardGif;
 var gifRating = "";
+var gifDownload;
+var gifTitle;
 var searchInput;
 var gifColumn;
 
@@ -21,7 +23,7 @@ var buttonMaker = function () {
     $("#buttons").empty();
     for (var i = 0; i < topics.length; i++) {
         var newButton = $("<button>").text(topics[i]);
-        newButton.addClass("btn btn-success mx-2");
+        newButton.addClass("btn btn-success mx-2 my-1");
         newButton.attr({
             "data-value": topics[i],
             "id": "gifSearch"
@@ -49,8 +51,12 @@ var ajaxCall = function () {
                     "data-state": "still",
                     "class": "gif card-img-top"});
                 gifRating = $("<p class='card-text'>").text("Rated: " + response.data[i].rating);
+                gifDownload = $("<a href= '" + response.data[i].images.original.mp4 + "' class='btn btn-light mx-auto' target='blank' download>" + "Download" + "</a>");
+                gifTitle = $("<h5 class='card-title'>" + response.data[i].title + "</h5>");
                 cardGif.append(gif);
+                cardGif.append(gifTitle);
                 cardGif.append(gifRating);
+                cardGif.append(gifDownload);
                 gifColumn.append(cardGif);
             }
             $("#gif-box").prepend(gifColumn);
