@@ -12,6 +12,7 @@ var gif;
 var cardGif;
 var gifRating = "";
 var searchInput;
+var gifColumn;
 
 
 
@@ -37,7 +38,8 @@ var ajaxCall = function () {
 
         .then(function (response) {
             console.log(response);
-            $("#gif-box").empty();
+            // $("#gif-box").empty();
+            gifColumn = $("<div class='col-md-12 card-columns' id='gifCol'>");
             for (var i = 0; i < response.data.length; i++) {
                 cardGif = $("<div>").addClass("card mb-3 p-1 text-white bg-info");
                 gif = $("<img>").attr({
@@ -49,8 +51,9 @@ var ajaxCall = function () {
                 gifRating = $("<p class='card-text'>").text("Rated: " + response.data[i].rating);
                 cardGif.append(gif);
                 cardGif.append(gifRating);
-                $("#gif-box").prepend(cardGif);
+                gifColumn.append(cardGif);
             }
+            $("#gif-box").prepend(gifColumn);
         });
 
 };
@@ -58,7 +61,7 @@ var ajaxCall = function () {
 
 //Calls
 $(document).ready(function(){
-//Button clicks
+//Creates initial buttons
 buttonMaker();
 
 //Button Click
