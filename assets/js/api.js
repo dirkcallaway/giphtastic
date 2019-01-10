@@ -64,7 +64,6 @@ var ajaxCall = function () {
 
 };
 
-
 //Calls
 $(document).ready(function(){
 //Creates initial buttons
