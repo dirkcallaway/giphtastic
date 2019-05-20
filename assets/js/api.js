@@ -15,6 +15,15 @@ var gifDownload;
 var gifTitle;
 var searchInput;
 var gifColumn;
+//Songkick API variables
+var apiKey = "N3NwIQTcgTiC3jVE";
+var metroAreaId = "";
+var lat = 39.7392;
+var lon = -104.9903; //default to Denver
+
+var concertDetails = "";
+var concertCity = "";
+var concertLink = "";
 
 
 
