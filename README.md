@@ -12,4 +12,4 @@ Click the Cat button and you are given 10 gifs on cats.
 
 ## Custom Gif Page
 Create a new button by typing it into the search bar.  A new button is then created.  Click the button and 10 gifs that relate to what you typed in are found.
-![Main Page](./screens/pam.PNG?raw=true)
+![Custom Search Page](./screens/pam.PNG?raw=true)
